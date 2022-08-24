@@ -6,17 +6,18 @@ func moveZeros(nums []int) {
 	k := 0
 	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
-			nums[k] = nums[i]
+			// 防止自身与自身交换
+			if i != k {
+				nums[k], nums[i] = nums[i], nums[k]
+			}
+			// 元素为0时k值暂停自增，其余时候与i值同步增加
 			k++
 		}
-	}
-	for i := k; i < len(nums); i++ {
-		nums[i] = 0
 	}
 }
 
 func main() {
-	a := []int{0, 2, 3, 0, 4, 5}
+	a := []int{2, 0, 4, 5}
 	moveZeros(a)
 	fmt.Println(a)
 }
