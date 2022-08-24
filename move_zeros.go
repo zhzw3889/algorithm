@@ -3,16 +3,14 @@ package main
 import "fmt"
 
 func moveZeros(nums []int) {
-	new_nums := []int{}
+	k := 0
 	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
-			new_nums = append(new_nums, nums[i])
+			nums[k] = nums[i]
+			k++
 		}
 	}
-	for i := 0; i < len(new_nums); i++ {
-		nums[i] = new_nums[i]
-	}
-	for i := len(new_nums); i < len(nums); i++ {
+	for i := k; i < len(nums); i++ {
 		nums[i] = 0
 	}
 }
