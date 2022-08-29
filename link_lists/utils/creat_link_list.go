@@ -15,7 +15,7 @@ func CreateLinkList(slice []int, length int) *ListNode {
 	head := &ListNode{Val: slice[0]}
 	cur := head
 
-	for i := 0; i < length; i++ {
+	for i := 1; i < length; i++ {
 		cur.Next = &ListNode{Val: slice[i]}
 		cur = cur.Next
 	}
@@ -24,9 +24,14 @@ func CreateLinkList(slice []int, length int) *ListNode {
 
 func PrintLinklist(head *ListNode) {
 	cur := head
+	fmt.Printf("Head node's Val: %d\n", cur.Val)
 	for cur != nil {
 		fmt.Printf("%d -> ", cur.Val)
+		if cur.Next == nil {
+			fmt.Printf("NULL\n")
+			fmt.Printf("Tail node's Val: %d\n", cur.Val)
+		}
 		cur = cur.Next
 	}
-	fmt.Printf("null\n")
+	fmt.Println("=========================")
 }
