@@ -1,8 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"link_list/utils"
 )
+
+// 删除指定值的节点
+func removeElements() {
+	fmt.Println()
+}
 
 // 翻转列表
 func reverseList(head *utils.ListNode) *utils.ListNode {
@@ -26,6 +32,6 @@ func main() {
 
 	link_list := utils.CreateLinkList(a, b)
 	utils.PrintLinklist(link_list)
-	reversed_link_list := reverseList(link_list)
-	utils.PrintLinklist(reversed_link_list)
+	// reversed_link_list := reverseList(link_list)
+	// utils.PrintLinklist(reversed_link_list)
 }
