@@ -1,4 +1,4 @@
-package main
+package stacks_and_queues
 
 import "testing"
 
@@ -9,9 +9,12 @@ func TestValidParentheses(t *testing.T) {
 	}{
 		{"{[({})]}", true},
 		{"{}", true},
+		{"[](){}", true},
 		{"{]", false},
 		{"{[}]", false},
 		{"{[[[", false},
+		{"{", false},
+		{"{}}}", false},
 	}
 	for _, test := range tests {
 		if got := validParentheses(test.input); got != test.want {

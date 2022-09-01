@@ -1,7 +1,6 @@
-package main
+package stacks_and_queues
 
 import (
-	"fmt"
 	"stacks_and_queues/utils"
 )
 
@@ -27,14 +26,4 @@ func validParentheses(s string) bool {
 		}
 	}
 	return st.Size() == 0
-}
-
-func main() {
-	validParenthesesTest := []string{
-		"{[({})]}",
-		"{}",
-	}
-	for _, item := range validParenthesesTest {
-		fmt.Println(validParentheses(item))
-	}
 }
