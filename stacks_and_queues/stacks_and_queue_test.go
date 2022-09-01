@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestMain(t *testing.T) {
+func TestValidParentheses(t *testing.T) {
 	var tests = []struct {
 		input string
 		want  bool
@@ -15,7 +15,7 @@ func TestMain(t *testing.T) {
 	}
 	for _, test := range tests {
 		if got := validParentheses(test.input); got != test.want {
-			t.Errorf("validParentheses(%q) = %v", test.input, got)
+			t.Errorf("validParentheses(%q) = %v, wanted: %v", test.input, got, test.want)
 		}
 	}
 }
