@@ -36,33 +36,3 @@ func letterCombinations(digits string) []string {
 	findCombination(digits, 0, "")
 	return result
 }
-
-func letterCombinationsLeetcode(digits string) (res []string) {
-	if digits == "" {
-		return
-	}
-	mp := make(map[byte]string)
-	mp['2'] = "abc"
-	mp['3'] = "def"
-	mp['4'] = "ghi"
-	mp['5'] = "jkl"
-	mp['6'] = "mno"
-	mp['7'] = "pqrs"
-	mp['8'] = "tuv"
-	mp['9'] = "wxyz"
-
-	var recur func(str string, count int, ans string)
-	recur = func(str string, count int, ans string) {
-		if len(str) == count {
-			res = append(res, ans)
-			return
-		}
-		s := mp[str[count]]
-		for i := 0; i < len(s); i++ {
-			recur(str, count+1, ans+string(s[i]))
-		}
-	}
-
-	recur(digits, 0, "")
-	return
-}
