@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-// 检查字符串中括号是否配对无误，"()"->true, "()[]{}"->true, "(]"->false
+// stack, 检查字符串中括号是否配对无误，"()"->true, "()[]{}"->true, "(]"->false
 func validParentheses(s string) bool {
 	stack := new(utils.RuneStack)
 	match := map[rune]rune{
@@ -33,7 +33,7 @@ func validParentheses(s string) bool {
 	return stack.Size() == 0
 }
 
-// 逆波兰表达式求值(Evaluate Reverse Polish Notation)
+// stack, 逆波兰表达式求值(Evaluate Reverse Polish Notation)
 func evalRPN(tokens []string) int {
 	stack := new(utils.IntStack)
 
@@ -60,7 +60,7 @@ func evalRPN(tokens []string) int {
 	return stack.Pop()
 }
 
-// 简化路径
+// stack, 简化路径
 func simplifyPath(path string) string {
 	return ""
 }
