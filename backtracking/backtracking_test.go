@@ -11,13 +11,42 @@ func TestLetterCombinations(t *testing.T) {
 		input string
 		want  []string
 	}{
-		{"23", []string{"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"}},
 		{"", []string{}},
 		{"2", []string{"a", "b", "c"}},
+		{"23", []string{"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"}},
+		{"234", []string{"adg", "adh", "adi", "aeg", "aeh", "aei", "afg", "afh", "afi", "bdg", "bdh", "bdi", "beg", "beh", "bei", "bfg", "bfh", "bfi", "cdg", "cdh", "cdi", "ceg", "ceh", "cei", "cfg", "cfh", "cfi"}},
 	}
 	for _, test := range tests {
 		if got := letterCombinations(test.input); !utils.EqualSlice(test.want, got) {
 			t.Errorf("letterCombinations(%q) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
+
+// 全排列问题测试
+func TestPermute(t *testing.T) {
+	var tests = []struct {
+		input []int
+		want  [][]int
+	}{
+		{[]int{}, [][]int{}},
+		{[]int{2}, [][]int{{2}}},
+		{[]int{2, 3}, [][]int{{2, 3}, {3, 2}}},
+		{[]int{1, 2, 3}, [][]int{
+			{1, 2, 3}, {1, 3, 2},
+			{2, 1, 3}, {2, 3, 1},
+			{3, 1, 2}, {3, 2, 1}}},
+		{[]int{5, 4, 6, 2}, [][]int{
+			{5, 4, 6, 2}, {5, 4, 2, 6}, {5, 6, 4, 2}, {5, 6, 2, 4},
+			{5, 2, 4, 6}, {5, 2, 6, 4}, {4, 5, 6, 2}, {4, 5, 2, 6},
+			{4, 6, 5, 2}, {4, 6, 2, 5}, {4, 2, 5, 6}, {4, 2, 6, 5},
+			{6, 5, 4, 2}, {6, 5, 2, 4}, {6, 4, 5, 2}, {6, 4, 2, 5},
+			{6, 2, 5, 4}, {6, 2, 4, 5}, {2, 5, 4, 6}, {2, 5, 6, 4},
+			{2, 4, 5, 6}, {2, 4, 6, 5}, {2, 6, 5, 4}, {2, 6, 4, 5}}},
+	}
+	for _, test := range tests {
+		if got := permute(test.input); !utils.EqualSlice2Degree(test.want, got) {
+			t.Errorf("letterCombinations(%v) = %v, wanted: %v", test.input, got, test.want)
 		}
 	}
 }
