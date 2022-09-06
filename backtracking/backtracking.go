@@ -82,3 +82,27 @@ func permute(nums []int) [][]int {
 	findPermutation(0, []int{})
 	return result
 }
+
+// Combinations，组合问题
+func combine(n int, k int) [][]int {
+	result := [][]int{}
+	if n <= 0 || k <= 0 || k > n {
+		return result
+	}
+	var generateCombinations func(start int, c []int)
+	generateCombinations = func(start int, c []int) {
+		if len(c) == k {
+			temp := make([]int, k)
+			copy(temp, c)
+			result = append(result, temp)
+		}
+		// 循环开始条件为start
+		for i := start; i <= n; i++ {
+			c = append(c, i)
+			generateCombinations(i+1, c)
+			c = c[:len(c)-1]
+		}
+	}
+	generateCombinations(1, []int{})
+	return result
+}

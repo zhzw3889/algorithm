@@ -50,3 +50,27 @@ func TestPermute(t *testing.T) {
 		}
 	}
 }
+
+// 组合问题测试
+func TestCombine(t *testing.T) {
+	var tests = []struct {
+		input1 int
+		input2 int
+		want   [][]int
+	}{
+		{4, 2, [][]int{
+			{1, 2},
+			{1, 3},
+			{1, 4},
+			{2, 3},
+			{2, 4},
+			{3, 4},
+		}},
+		{1, 1, [][]int{{1}}},
+	}
+	for _, test := range tests {
+		if got := combine(test.input1, test.input2); !utils.EqualSlice2Degree(test.want, got) {
+			t.Errorf("combine(%v, %v) = %v, wanted: %v", test.input1, test.input2, got, test.want)
+		}
+	}
+}
