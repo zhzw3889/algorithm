@@ -48,3 +48,22 @@ func BubbleSort03(arr []int) []int {
 	}
 	return arr
 }
+
+// 简单选择排序
+func SelectSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	for i := 0; i < len(arr); i++ {
+		min := i
+		for j := i + 1; j < len(arr); j++ {
+			if arr[min] > arr[j] {
+				min = j
+			}
+		}
+		if i != min {
+			arr[i], arr[min] = arr[min], arr[i]
+		}
+	}
+	return arr
+}

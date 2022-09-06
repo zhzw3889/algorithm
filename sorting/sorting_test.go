@@ -57,3 +57,13 @@ func TestBubbleSort03(t *testing.T) {
 		}
 	}
 }
+
+// 简单选择排序, 3.70s
+func TestSelectSort(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		if got := SelectSort(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("SelectSort(%v) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
