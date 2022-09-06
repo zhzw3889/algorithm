@@ -64,8 +64,7 @@ func TestCombine(t *testing.T) {
 			{1, 4},
 			{2, 3},
 			{2, 4},
-			{3, 4},
-		}},
+			{3, 4}}},
 		{1, 1, [][]int{{1}}},
 	}
 	for _, test := range tests {

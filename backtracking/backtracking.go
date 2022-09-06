@@ -84,19 +84,25 @@ func permute(nums []int) [][]int {
 }
 
 // Combinations，组合问题
+// 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
 func combine(n int, k int) [][]int {
 	result := [][]int{}
 	if n <= 0 || k <= 0 || k > n {
 		return result
 	}
+	// 循环开始条件为start
 	var generateCombinations func(start int, c []int)
 	generateCombinations = func(start int, c []int) {
+		// 还有k-len(c)个空位
+		if n+1-(k-len(c)) < 0 {
+			return
+		}
+
 		if len(c) == k {
 			temp := make([]int, k)
 			copy(temp, c)
 			result = append(result, temp)
 		}
-		// 循环开始条件为start
 		for i := start; i <= n; i++ {
 			c = append(c, i)
 			generateCombinations(i+1, c)
