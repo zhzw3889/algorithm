@@ -88,3 +88,13 @@ func TestShellSort(t *testing.T) {
 		}
 	}
 }
+
+// 堆排序
+func TestHeapSort(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		if got := HeapSort(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("HeapSort(%v) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
