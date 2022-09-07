@@ -90,3 +90,27 @@ func InsertionSort(arr []int) []int {
 	}
 	return arr
 }
+
+// 希尔排序
+func ShellSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+	var tmp int
+	for increment := N / 2; increment > 0; increment /= 2 {
+		for i := increment; i < N; i++ {
+			tmp = arr[i]
+			j := i
+			for ; j >= increment; j -= increment {
+				if tmp < arr[j-increment] {
+					arr[j] = arr[j-increment]
+				} else {
+					break
+				}
+			}
+			arr[j] = tmp
+		}
+	}
+	return arr
+}

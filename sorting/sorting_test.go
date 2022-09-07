@@ -29,7 +29,7 @@ func generateTests() (tests []struct{ input, want []int }) {
 	return tests
 }
 
-// 冒泡排序01测试, 3.24s
+// 冒泡排序01测试
 func TestBubbleSort01(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
@@ -39,7 +39,7 @@ func TestBubbleSort01(t *testing.T) {
 	}
 }
 
-// 冒泡排序02测试, 8.90s
+// 冒泡排序02测试
 func TestBubbleSort02(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
@@ -49,7 +49,7 @@ func TestBubbleSort02(t *testing.T) {
 	}
 }
 
-// 冒泡排序03测试，改进的冒泡, 8.52s
+// 冒泡排序03测试，改进的冒泡
 func TestBubbleSort03(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
@@ -59,7 +59,7 @@ func TestBubbleSort03(t *testing.T) {
 	}
 }
 
-// 简单选择排序, 3.70s
+// 简单选择排序
 func TestSelectSort(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
@@ -75,6 +75,16 @@ func TestInsertionSort(t *testing.T) {
 	for _, test := range tests {
 		if got := InsertionSort(test.input); !utils.EqualSlice(test.want, got) {
 			t.Errorf("InsertionSort(%v) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
+
+// 希尔排序
+func TestShellSort(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		if got := ShellSort(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("ShellSort(%v) = %v, wanted: %v", test.input, got, test.want)
 		}
 	}
 }
