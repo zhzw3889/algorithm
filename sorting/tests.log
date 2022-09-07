@@ -1,17 +1,17 @@
 Running tool: /usr/bin/go test -timeout 60s -run ^(TestBubbleSort01|TestBubbleSort02|TestBubbleSort03|TestSelectSort|TestInsertionSort)$ sorting
 
 === RUN   TestBubbleSort01
---- PASS: TestBubbleSort01 (3.59s)
+--- PASS: TestBubbleSort01 (5.19s)
 === RUN   TestBubbleSort02
---- PASS: TestBubbleSort02 (9.24s)
+--- PASS: TestBubbleSort02 (11.50s)
 === RUN   TestBubbleSort03
---- PASS: TestBubbleSort03 (9.40s)
+--- PASS: TestBubbleSort03 (8.82s)
 === RUN   TestSelectSort
---- PASS: TestSelectSort (4.29s)
+--- PASS: TestSelectSort (7.34s)
 === RUN   TestInsertionSort
---- PASS: TestInsertionSort (3.32s)
+--- PASS: TestInsertionSort (2.16s)
 PASS
-ok      sorting 29.850s
+ok      sorting 35.027s
 
 
-> 测试运行完成时间: 2022/9/7 17:08:08 <
+> 测试运行完成时间: 2022/9/7 18:30:07 <

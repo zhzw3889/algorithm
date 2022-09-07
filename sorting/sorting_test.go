@@ -23,7 +23,8 @@ func generateTests() (tests []struct{ input, want []int }) {
 		{[]int{1}, []int{1}},
 		{[]int{9, 8, 1, 5, 3}, []int{1, 3, 5, 8, 9}},
 		{[]int{99, 138, 78, 166, 53}, []int{53, 78, 99, 138, 166}},
-		{a, b},
+		{a, b}, // 逆序情况
+		{b, b}, // 已经排好序
 	}
 	return tests
 }
