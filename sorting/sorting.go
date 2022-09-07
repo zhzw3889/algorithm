@@ -55,6 +55,8 @@ func SelectSort(arr []int) []int {
 		return arr
 	}
 	for i := 0; i < len(arr); i++ {
+		// 找到i后面的最小值，记录其下标，与arr[i]交换
+		// 比较的次数固定为n(n-1)/2，交换的最大次数为n-1次
 		min := i
 		for j := i + 1; j < len(arr); j++ {
 			if arr[min] > arr[j] {
@@ -64,6 +66,22 @@ func SelectSort(arr []int) []int {
 		if i != min {
 			arr[i], arr[min] = arr[min], arr[i]
 		}
+	}
+	return arr
+}
+
+// 简单插入排序
+func InsertionSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	for i := 1; i < len(arr); i++ {
+		tmp := arr[i]
+		j := i
+		for ; j > 0 && arr[j-1] > tmp; j-- {
+			arr[j] = arr[j-1]
+		}
+		arr[j] = tmp
 	}
 	return arr
 }

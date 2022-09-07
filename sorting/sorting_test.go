@@ -67,3 +67,13 @@ func TestSelectSort(t *testing.T) {
 		}
 	}
 }
+
+// 简单插入排序
+func TestInsertionSort(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		if got := InsertionSort(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("InsertionSort(%v) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
