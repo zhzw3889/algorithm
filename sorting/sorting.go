@@ -115,12 +115,13 @@ func ShellSort(arr []int) []int {
 	return arr
 }
 
-// 堆排序
-func HeapSort(arr []int) []int {
+// 堆排序01
+func HeapSort01(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
 	}
 	N := len(arr)
+	// 将完全二叉树调整成大顶堆
 	HeapAdjust := func(s, m int) {
 		temp := arr[s]
 		for j := 2 * s; j <= m; j *= 2 {
@@ -135,12 +136,50 @@ func HeapSort(arr []int) []int {
 		}
 		arr[s] = temp
 	}
+
 	for i := N / 2; i >= 0; i-- {
 		HeapAdjust(i, N-1)
 	}
 	for i := N - 1; i > 0; i-- {
 		arr[0], arr[i] = arr[i], arr[0]
 		HeapAdjust(0, i-1)
+	}
+
+	return arr
+}
+
+// 堆排序02
+func HeapSort02(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+	// 将完全二叉树调整成大顶堆
+	heapAdjust := func(j, n int) {
+		var tmp, child int
+		for tmp = arr[j]; 2*j+1 < n; j = child {
+			child = 2*j + 1
+			// child != n-1为边界条件，保证只在树内操作
+			if child != n-1 && arr[child+1] > arr[child] {
+				child++
+			}
+			if tmp < arr[child] {
+				arr[j] = arr[child]
+			} else {
+				break
+			}
+		}
+		arr[j] = tmp
+	}
+	// 从最结尾的父节点开始
+	for i := N / 2; i >= 0; i-- {
+		heapAdjust(i, N)
+	}
+
+	// 将根节点与尾节点交换，再重新调整为大顶堆(maxheap)
+	for i := N - 1; i > 0; i-- {
+		arr[0], arr[i] = arr[i], arr[0]
+		heapAdjust(0, i)
 	}
 
 	return arr

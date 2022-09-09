@@ -21,8 +21,9 @@ func generateTests() (tests []struct{ input, want []int }) {
 	}{
 		{[]int{}, []int{}},
 		{[]int{1}, []int{1}},
-		{[]int{9, 8, 1, 5, 3}, []int{1, 3, 5, 8, 9}},
+		{[]int{5, 8, 1, 9, 3, 7, 10}, []int{1, 3, 5, 7, 8, 9, 10}},
 		{[]int{99, 138, 78, 166, 53}, []int{53, 78, 99, 138, 166}},
+		{[]int{99, 138, 78, 166, 53, 1}, []int{1, 53, 78, 99, 138, 166}},
 		{a, b}, // 逆序情况
 		{b, b}, // 已经排好序
 	}
@@ -33,8 +34,10 @@ func generateTests() (tests []struct{ input, want []int }) {
 func TestBubbleSort01(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := BubbleSort01(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("BubbleSort01(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("BubbleSort01(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
@@ -43,8 +46,10 @@ func TestBubbleSort01(t *testing.T) {
 func TestBubbleSort02(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := BubbleSort02(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("BubbleSort02(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("BubbleSort02(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
@@ -53,8 +58,10 @@ func TestBubbleSort02(t *testing.T) {
 func TestBubbleSort03(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := BubbleSort03(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("BubbleSort03(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("BubbleSort03(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
@@ -63,8 +70,10 @@ func TestBubbleSort03(t *testing.T) {
 func TestSelectSort(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := SelectSort(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("SelectSort(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("SelectSort(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
@@ -73,8 +82,10 @@ func TestSelectSort(t *testing.T) {
 func TestInsertionSort(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := InsertionSort(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("InsertionSort(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("InsertionSort(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
@@ -83,18 +94,34 @@ func TestInsertionSort(t *testing.T) {
 func TestShellSort(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
 		if got := ShellSort(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("ShellSort(%v) = %v, wanted: %v", test.input, got, test.want)
+			t.Errorf("ShellSort(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
 
-// 堆排序
-func TestHeapSort(t *testing.T) {
+// 堆排序01
+func TestHeapSort01(t *testing.T) {
 	tests := generateTests()
 	for _, test := range tests {
-		if got := HeapSort(test.input); !utils.EqualSlice(test.want, got) {
-			t.Errorf("HeapSort(%v) = %v, wanted: %v", test.input, got, test.want)
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := HeapSort01(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("HeapSort01(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}
+
+// 堆排序02
+func TestHeapSort02(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := HeapSort02(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("HeapSort02(%v) = %v, wanted: %v", input, got, test.want)
 		}
 	}
 }
