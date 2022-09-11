@@ -125,3 +125,15 @@ func TestHeapSort02(t *testing.T) {
 		}
 	}
 }
+
+// 堆排序03
+func TestHeapSort03(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := HeapSort03(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("HeapSort03(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}

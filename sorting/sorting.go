@@ -115,7 +115,7 @@ func ShellSort(arr []int) []int {
 	return arr
 }
 
-// 堆排序01
+// 堆排序01 (大话数据结构)
 func HeapSort01(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
@@ -148,14 +148,14 @@ func HeapSort01(arr []int) []int {
 	return arr
 }
 
-// 堆排序02
+// 堆排序02，（DSAAC）
 func HeapSort02(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
 	}
 	N := len(arr)
-	// 将完全二叉树调整成大顶堆
-	heapAdjust := func(j, n int) {
+	// 将完全二叉树调整成大顶堆，n为堆长度
+	heapify := func(j, n int) {
 		var tmp, child int
 		for tmp = arr[j]; 2*j+1 < n; j = child {
 			child = 2*j + 1
@@ -166,6 +166,8 @@ func HeapSort02(arr []int) []int {
 			if tmp < arr[child] {
 				arr[j] = arr[child]
 			} else {
+				// 默认结尾是已经堆化的
+				// 与构建时倒序迭代是相关的
 				break
 			}
 		}
@@ -173,13 +175,53 @@ func HeapSort02(arr []int) []int {
 	}
 	// 从最结尾的父节点开始
 	for i := N / 2; i >= 0; i-- {
-		heapAdjust(i, N)
+		// 与break相关
+		heapify(i, N)
 	}
 
 	// 将根节点与尾节点交换，再重新调整为大顶堆(maxheap)
 	for i := N - 1; i > 0; i-- {
 		arr[0], arr[i] = arr[i], arr[0]
-		heapAdjust(0, i)
+		heapify(0, i)
+	}
+
+	return arr
+}
+
+// 堆排序03，（递归heapify）
+func HeapSort03(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+	// 用递归实现堆化，理解上更简单一些
+	var heapify func(j, n int)
+	heapify = func(j, n int) {
+		leftChild := 2*j + 1
+		rightChild := 2*j + 2
+		max := j
+		if leftChild <= n-1 && arr[leftChild] > arr[max] {
+			max = leftChild
+		}
+		if rightChild <= n-1 && arr[rightChild] > arr[max] {
+			max = rightChild
+		}
+		if max != j {
+			arr[j], arr[max] = arr[max], arr[j]
+			heapify(max, n)
+		} else {
+			// 与前二者break作用同，创建时可以节省一半时间
+			return
+		}
+	}
+
+	for i := N / 2; i >= 0; i-- {
+		heapify(i, N)
+	}
+
+	for i := N - 1; i > 0; i-- {
+		arr[0], arr[i] = arr[i], arr[0]
+		heapify(0, i)
 	}
 
 	return arr
