@@ -155,3 +155,15 @@ func TestHeapSort03(t *testing.T) {
 		}
 	}
 }
+
+// 归并排序01
+func TestMergeSort(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := MergeSort01(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("MergeSort01(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}

@@ -226,3 +226,63 @@ func HeapSort03(arr []int) []int {
 
 	return arr
 }
+
+// 归并排序，递归实现
+func MergeSort01(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+
+	merge := func(tmpArray []int, lpos, rpos, rightEnd int) {
+		var leftEnd, numElements, tmpPos int
+		leftEnd = rpos - 1
+		tmpPos = lpos
+		numElements = rightEnd - lpos + 1
+
+		for lpos <= leftEnd && rpos <= rightEnd {
+			// main loop
+			if arr[lpos] <= arr[rpos] {
+				tmpArray[tmpPos] = arr[lpos]
+				lpos++
+				tmpPos++
+			} else {
+				tmpArray[tmpPos] = arr[rpos]
+				rpos++
+				tmpPos++
+			}
+		}
+		// copy rest of first half
+		for lpos <= leftEnd {
+			tmpArray[tmpPos] = arr[lpos]
+			lpos++
+			tmpPos++
+		}
+		// copy rest of second half
+		for rpos <= rightEnd {
+			tmpArray[tmpPos] = arr[rpos]
+			rpos++
+			tmpPos++
+		}
+		// copy tmpArray back
+		for i := 0; i < numElements; i++ {
+			arr[rightEnd] = tmpArray[rightEnd]
+			rightEnd--
+		}
+	}
+
+	var mSort func(tmpArray []int, left, right int)
+	mSort = func(tmpArray []int, left, right int) {
+		var center int
+		if left < right {
+			center = (left + right) / 2
+			mSort(tmpArray, left, center)
+			mSort(tmpArray, center+1, right)
+			merge(tmpArray, left, center+1, right)
+		}
+	}
+
+	tmpArray := make([]int, N)
+	mSort(tmpArray, 0, N-1)
+	return arr
+}
