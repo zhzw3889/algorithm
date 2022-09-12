@@ -370,3 +370,54 @@ func QuickSort02(arr []int) []int {
 	qSort(0, N-1)
 	return arr
 }
+
+// 快速排序03，其他优化
+// 1.变交换为赋值 2.尾递归优化
+// todo 3.N较小时调用插入排序
+func QuickSort03(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+
+	partition := func(low, high int) int {
+		// 三数取中，保证low的值为三个值的中间值
+		mid := low + (high-low)/2
+		if arr[low] > arr[high] {
+			arr[low], arr[high] = arr[high], arr[low]
+		}
+		if arr[mid] > arr[high] {
+			arr[mid], arr[high] = arr[high], arr[mid]
+		}
+		if arr[mid] > arr[low] {
+			arr[mid], arr[low] = arr[low], arr[mid]
+		}
+
+		// 选第一个数作为枢轴值
+		pivotval := arr[low]
+		for low < high {
+			for low < high && arr[high] >= pivotval {
+				high--
+			}
+			arr[low] = arr[high]
+			for low < high && arr[low] <= pivotval {
+				low++
+			}
+			arr[high] = arr[low]
+		}
+		arr[low] = pivotval
+		return low
+	}
+
+	var qSort func(low, high int)
+	qSort = func(low, high int) {
+		var pivot int
+		for low < high {
+			pivot = partition(low, high)
+			qSort(low, pivot-1)
+			low = pivot + 1
+		}
+	}
+	qSort(0, N-1)
+	return arr
+}

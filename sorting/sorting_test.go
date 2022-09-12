@@ -191,3 +191,16 @@ func TestQuickSort02(t *testing.T) {
 		}
 	}
 }
+
+// 快速排序03，其他优化
+// 1.变交换为赋值 2.尾递归优化
+func TestQuickSort03(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := QuickSort03(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("QuickSort03(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}
