@@ -1,7 +1,11 @@
 package sorting
 
 import (
+	"fmt"
+	"io/ioutil"
 	"sorting/utils"
+	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -9,12 +13,25 @@ const N int = 100000
 
 // 生成测试[]struct
 func generateTests() (tests []struct{ input, want []int }) {
-	var a, b []int
-	// a降序，b升序
+	var a, b, c []int
+	// a降序，b升序，c随机
 	for i := 1; i <= N; i++ {
 		a = append(a, N+1-i)
 		b = append(b, i)
 	}
+	// todo, c从文件中读取，保持统一
+	data, err := ioutil.ReadFile("./random_ints.txt")
+	if err != nil {
+		fmt.Println("Read file err: ", err.Error())
+		return
+	}
+	tmp := strings.Split(string(data), " ")
+	for _, v := range tmp {
+		num, _ := strconv.Atoi(v)
+		c = append(c, num)
+	}
+
+	// 测试切片
 	tests = []struct {
 		input []int
 		want  []int
@@ -26,6 +43,7 @@ func generateTests() (tests []struct{ input, want []int }) {
 		{[]int{99, 138, 78, 166, 53, 1}, []int{1, 53, 78, 99, 138, 166}},
 		{a, b}, // 逆序情况
 		{b, b}, // 已经排好序
+		{c, b}, // 随机序列
 	}
 	return tests
 }
