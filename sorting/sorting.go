@@ -286,3 +286,39 @@ func MergeSort01(arr []int) []int {
 	mSort(tmpArray, 0, N-1)
 	return arr
 }
+
+// 快速排序01，第一个元素作为pivot
+func QuickSort01(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	N := len(arr)
+
+	partition := func(low, high int) int {
+		// 选第一个数作为枢轴值
+		pivotval := arr[low]
+		for low < high {
+			for low < high && arr[high] >= pivotval {
+				high--
+			}
+			arr[low], arr[high] = arr[high], arr[low]
+			for low < high && arr[low] <= pivotval {
+				low++
+			}
+			arr[low], arr[high] = arr[high], arr[low]
+		}
+		return low
+	}
+
+	var qSort func(low, high int)
+	qSort = func(low, high int) {
+		var pivot int
+		if low < high {
+			pivot = partition(low, high)
+			qSort(low, pivot-1)
+			qSort(pivot+1, high)
+		}
+	}
+	qSort(0, N-1)
+	return arr
+}

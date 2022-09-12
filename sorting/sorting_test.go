@@ -167,3 +167,15 @@ func TestMergeSort(t *testing.T) {
 		}
 	}
 }
+
+// 快速排序01, 正序和逆序耗时较长
+func TestQuickSort01(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := QuickSort01(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("QuickSort01(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}
