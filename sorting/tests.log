@@ -1,31 +1,32 @@
-Running tool: /usr/bin/go test -timeout 600s -run ^(TestBubbleSort01|TestBubbleSort02|TestBubbleSort03|TestSelectSort|TestInsertionSort|TestShellSort|TestHeapSort01|TestHeapSort02|TestHeapSort03|TestMergeSort|TestQuickSort01)$ sorting
+Running tool: /usr/bin/go test -timeout 600s -run ^(TestBubbleSort01|TestBubbleSort02|TestBubbleSort03|TestSelectSort|TestInsertionSort|TestShellSort|TestHeapSort01|TestHeapSort02|TestHeapSort03|TestMergeSort|TestQuickSort01|TestQuickSort02)$ sorting
 
 === RUN   TestBubbleSort01
---- PASS: TestBubbleSort01 (16.24s)
+--- PASS: TestBubbleSort01 (16.34s)
 === RUN   TestBubbleSort02
---- PASS: TestBubbleSort02 (25.46s)
+--- PASS: TestBubbleSort02 (25.64s)
 === RUN   TestBubbleSort03
---- PASS: TestBubbleSort03 (21.93s)
+--- PASS: TestBubbleSort03 (21.67s)
 === RUN   TestSelectSort
---- PASS: TestSelectSort (11.34s)
+--- PASS: TestSelectSort (11.51s)
 === RUN   TestInsertionSort
---- PASS: TestInsertionSort (3.08s)
+--- PASS: TestInsertionSort (3.93s)
 === RUN   TestShellSort
 --- PASS: TestShellSort (0.03s)
 === RUN   TestHeapSort01
---- PASS: TestHeapSort01 (0.04s)
+--- PASS: TestHeapSort01 (0.03s)
 === RUN   TestHeapSort02
 --- PASS: TestHeapSort02 (0.03s)
 === RUN   TestHeapSort03
---- PASS: TestHeapSort03 (0.06s)
+--- PASS: TestHeapSort03 (0.04s)
 === RUN   TestMergeSort
 --- PASS: TestMergeSort (0.03s)
 === RUN   TestQuickSort01
---- PASS: TestQuickSort01 (3.53s)
+--- PASS: TestQuickSort01 (3.55s)
+=== RUN   TestQuickSort02
+--- PASS: TestQuickSort02 (0.04s)
 PASS
-ok      sorting 81.763s
+ok      sorting 82.843s
 
 
-> 测试运行完成时间: 2022/9/12 20:57:56 <
-
+> 测试运行完成时间: 2022/9/12 21:35:16 <
 

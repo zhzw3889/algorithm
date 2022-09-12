@@ -179,3 +179,15 @@ func TestQuickSort01(t *testing.T) {
 		}
 	}
 }
+
+// 快速排序02, 三数取中，规避取两头值作为pivot的情况
+func TestQuickSort02(t *testing.T) {
+	tests := generateTests()
+	for _, test := range tests {
+		input := make([]int, len(test.input))
+		copy(input, test.input)
+		if got := QuickSort02(test.input); !utils.EqualSlice(test.want, got) {
+			t.Errorf("QuickSort02(%v) = %v, wanted: %v", input, got, test.want)
+		}
+	}
+}
