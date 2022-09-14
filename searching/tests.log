@@ -1,0 +1,11 @@
+Running tool: /usr/bin/go test -timeout 600s -run ^(TestBinarySearch|TestInterpolationSearch)$ searching
+
+=== RUN   TestBinarySearch
+--- PASS: TestBinarySearch (0.00s)
+=== RUN   TestInterpolationSearch
+--- PASS: TestInterpolationSearch (0.00s)
+PASS
+ok      searching       0.003s
+
+
+> 测试运行完成时间: 2022/9/14 17:09:49 <
