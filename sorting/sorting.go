@@ -8,7 +8,8 @@ func BubbleSort01(arr []int) []int {
 	for i := 0; i < len(arr); i++ {
 		for j := i + 1; j < len(arr); j++ {
 			if arr[i] > arr[j] {
-				// arr[i]在i为某个值时一直在变动，一直更新到其在包括自身在内的后续子序列中值为最小
+				// arr[i]在i为某个值时一直在变动
+				// 一直更新到其在包括自身在内的后续子序列中值为最小
 				arr[i], arr[j] = arr[j], arr[i]
 			}
 		}
@@ -115,7 +116,9 @@ func ShellSort(arr []int) []int {
 	return arr
 }
 
-// 堆排序01 (大话数据结构)
+// 堆排序
+// 父节点：(i-1)/2, 左子节点：2*i+1，右子节点：2*i+2
+// 01 (大话数据结构)
 func HeapSort01(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
@@ -148,7 +151,7 @@ func HeapSort01(arr []int) []int {
 	return arr
 }
 
-// 堆排序02，（DSAAC）
+// 02，（DSAAC）
 func HeapSort02(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
@@ -188,7 +191,7 @@ func HeapSort02(arr []int) []int {
 	return arr
 }
 
-// 堆排序03，（递归heapify）
+// 03，（递归heapify）
 func HeapSort03(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
