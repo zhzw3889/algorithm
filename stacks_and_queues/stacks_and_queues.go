@@ -7,7 +7,7 @@ import (
 
 // stack, 检查字符串中括号是否配对无误，"()"->true, "()[]{}"->true, "(]"->false
 func validParentheses(s string) bool {
-	stack := new(utils.RuneStack)
+	stack := new(utils.Stack)
 	match := map[rune]rune{
 		')': '(',
 		']': '[',
@@ -35,7 +35,7 @@ func validParentheses(s string) bool {
 
 // stack, 逆波兰表达式求值(Evaluate Reverse Polish Notation)
 func evalRPN(tokens []string) int {
-	stack := new(utils.IntStack)
+	stack := new(utils.Stack)
 
 	for _, item := range tokens {
 		// 遇到数字入栈
@@ -43,8 +43,8 @@ func evalRPN(tokens []string) int {
 			stack.Push(num)
 		} else {
 			// 遇到运算符从栈中取出两个top值，计算再push进栈
-			a := stack.Pop()
-			b := stack.Pop()
+			a := stack.Pop().(int)
+			b := stack.Pop().(int)
 			switch item {
 			case "+":
 				stack.Push(b + a)
@@ -57,7 +57,7 @@ func evalRPN(tokens []string) int {
 			}
 		}
 	}
-	return stack.Pop()
+	return stack.Pop().(int)
 }
 
 // stack, 简化路径

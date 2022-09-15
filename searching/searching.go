@@ -30,6 +30,7 @@ func InterpolationSearch(nums []int, target int) int {
 	var mid int
 	for low <= high {
 		// 只有此处改进，mid可能出界
+		// 1/2变成(target-nums[low])/(nums[high]-nums[low])
 		mid = int(float64(low) + float64(target-nums[low])/float64(nums[high]-nums[low])*float64(high-low))
 		if mid < 0 || mid > N-1 {
 			break

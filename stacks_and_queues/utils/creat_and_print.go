@@ -1,13 +1,13 @@
 package utils
 
-// rune 栈
-type RuneStack []rune
+// 栈结构
+type Stack []interface{}
 
-func (s *RuneStack) Push(item rune) {
+func (s *Stack) Push(item interface{}) {
 	*s = append(*s, item)
 }
 
-func (s *RuneStack) Pop() (item rune) {
+func (s *Stack) Pop() (item interface{}) {
 	if len(*s) == 0 {
 		return
 	}
@@ -16,26 +16,6 @@ func (s *RuneStack) Pop() (item rune) {
 	return item
 }
 
-func (s *RuneStack) Size() int {
-	return len(*s)
-}
-
-// int 栈
-type IntStack []int
-
-func (s *IntStack) Push(item int) {
-	*s = append(*s, item)
-}
-
-func (s *IntStack) Pop() (item int) {
-	if len(*s) == 0 {
-		return
-	}
-
-	*s, item = (*s)[:len(*s)-1], (*s)[len(*s)-1]
-	return item
-}
-
-func (s *IntStack) Size() int {
+func (s *Stack) Size() int {
 	return len(*s)
 }
