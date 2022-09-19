@@ -2,11 +2,12 @@ package sorting
 
 // 冒泡排序01，逆序时，此法比02、03快
 func BubbleSort01(arr []int) []int {
-	if len(arr) <= 1 {
+	N := len(arr)
+	if N <= 1 {
 		return arr
 	}
-	for i := 0; i < len(arr); i++ {
-		for j := i + 1; j < len(arr); j++ {
+	for i := 0; i < N-1; i++ {
+		for j := i + 1; j < N; j++ {
 			if arr[i] > arr[j] {
 				// arr[i]在i为某个值时一直在变动
 				// 一直更新到其在包括自身在内的后续子序列中值为最小
@@ -19,11 +20,12 @@ func BubbleSort01(arr []int) []int {
 
 // 冒泡排序02，普通冒泡
 func BubbleSort02(arr []int) []int {
-	if len(arr) <= 1 {
+	N := len(arr)
+	if N <= 1 {
 		return arr
 	}
-	for i := 0; i < len(arr); i++ {
-		for j := len(arr) - 1; j > i; j-- {
+	for i := 0; i < N; i++ {
+		for j := N - 1; j > i; j-- {
 			if arr[j-1] > arr[j] {
 				arr[j-1], arr[j] = arr[j], arr[j-1]
 			}
@@ -34,13 +36,14 @@ func BubbleSort02(arr []int) []int {
 
 // 冒泡排序03，改进冒泡
 func BubbleSort03(arr []int) []int {
-	if len(arr) <= 1 {
+	N := len(arr)
+	if N <= 1 {
 		return arr
 	}
 	flag := true
-	for i := 0; i < len(arr) && flag; i++ {
+	for i := 0; i < N && flag; i++ {
 		flag = false
-		for j := len(arr) - 1; j > i; j-- {
+		for j := N - 1; j > i; j-- {
 			if arr[j-1] > arr[j] {
 				arr[j-1], arr[j] = arr[j], arr[j-1]
 				flag = true
@@ -52,14 +55,15 @@ func BubbleSort03(arr []int) []int {
 
 // 简单选择排序
 func SelectSort(arr []int) []int {
-	if len(arr) <= 1 {
+	N := len(arr)
+	if N <= 1 {
 		return arr
 	}
-	for i := 0; i < len(arr); i++ {
+	for i := 0; i < N-1; i++ {
 		// 找到i后面的最小值，记录其下标，与arr[i]交换
 		// 比较的次数固定为n(n-1)/2，交换的最大次数为n-1次
 		min := i
-		for j := i + 1; j < len(arr); j++ {
+		for j := i + 1; j < N; j++ {
 			if arr[min] > arr[j] {
 				min = j
 			}
@@ -73,11 +77,12 @@ func SelectSort(arr []int) []int {
 
 // 简单插入排序
 func InsertionSort(arr []int) []int {
-	if len(arr) <= 1 {
+	N := len(arr)
+	if N <= 1 {
 		return arr
 	}
 	// 保证左侧有序，故不从0开始
-	for i := 1; i < len(arr); i++ {
+	for i := 1; i < N; i++ {
 		// 先将arr[i]暂存，待后面放在合适的位置
 		tmp := arr[i]
 		j := i
