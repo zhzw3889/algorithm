@@ -83,7 +83,7 @@ func InsertionSort(arr []int) []int {
 	}
 	// 保证左侧有序，故不从0开始
 	for i := 1; i < N; i++ {
-		// 先将arr[i]暂存，待后面放在合适的位置
+		// 先将arr[i]暂存，待后面放在合适的位置，待插入
 		tmp := arr[i]
 		j := i
 		// 保证arr[i]左边的元素是有序的
