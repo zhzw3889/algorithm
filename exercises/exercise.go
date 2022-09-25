@@ -40,6 +40,7 @@ func printMultipTable() {
 	}
 
 }
+
 func main() {
 	printMultipTable()
 }

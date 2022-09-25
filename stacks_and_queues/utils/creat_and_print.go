@@ -19,3 +19,6 @@ func (s *Stack) Pop() (item interface{}) {
 func (s *Stack) Size() int {
 	return len(*s)
 }
+
+// 序列
+type Queue []interface{}
