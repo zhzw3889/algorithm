@@ -30,7 +30,7 @@ func main() {
 		a = append(a, i)
 	}
 
-	link_list := utils.CreateLinkList(a, b)
+	link_list := utils.CreateLinkList(a)
 	utils.PrintLinklist(link_list)
 	// reversed_link_list := reverseList(link_list)
 	// utils.PrintLinklist(reversed_link_list)

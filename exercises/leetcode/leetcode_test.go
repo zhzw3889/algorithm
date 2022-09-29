@@ -1,6 +1,7 @@
 package exercises
 
 import (
+	"exercise/utils"
 	"testing"
 )
 
@@ -50,6 +51,23 @@ func TestRotatedDigits_zhzw(t *testing.T) {
 	for _, test := range tests {
 		if got := rotatedDigits_zhzw(test.input); test.want != got {
 			t.Errorf("totateDigits(%v) = %v, wanted: %v", test.input, got, test.want)
+		}
+	}
+}
+
+func TestThreeSum(t *testing.T) {
+	var tests = []struct {
+		input []int
+		want  [][]int
+	}{
+		{[]int{-1, 0, 1, 2, -1, -4}, [][]int{
+			{-1, -1, 2},
+			{-1, 0, 1},
+		}},
+	}
+	for _, test := range tests {
+		if got := threeSum(test.input); !utils.EqualSlice2Degree(test.want, got) {
+			t.Errorf("threeSum(%v) = %v, wanted: %v", test.input, got, test.want)
 		}
 	}
 }

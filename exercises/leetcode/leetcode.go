@@ -1,5 +1,11 @@
 package exercises
 
+import (
+	"exercise/utils"
+	"math"
+	"sort"
+)
+
 // todo
 func rotatedDigits_zhzw(n int) int {
 	// false为翻转不同，true为翻转相同
@@ -63,4 +69,177 @@ func rotatedDigits(n int) int {
 		}
 	}
 	return res
+}
+
+// 两数相加
+func addTwoNumbers_zhzw(l1 *utils.ListNode, l2 *utils.ListNode) *utils.ListNode {
+	l := &utils.ListNode{}
+	// 进位符
+	flag := 0
+	for {
+		l.Val = l1.Val + l2.Val
+		if flag == 1 {
+			l.Val++
+		}
+		if l.Val >= 10 {
+			l.Val /= l.Val
+			flag = 1
+		} else {
+			flag = 0
+		}
+		l.Next = &utils.ListNode{}
+		if l.Next == nil {
+			break
+		}
+		l = l.Next
+		l1 = l1.Next
+		l2 = l2.Next
+	}
+	return l
+}
+
+// 两数相加
+func addTwoNumbers(l1 *utils.ListNode, l2 *utils.ListNode) *utils.ListNode {
+	var head *utils.ListNode
+	var tail *utils.ListNode
+	// 余数
+	carry := 0
+	for l1 != nil || l2 != nil {
+		n1, n2 := 0, 0
+		if l1 != nil {
+			n1 = l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			n2 = l2.Val
+			l2 = l2.Next
+		}
+		sum := n1 + n2 + carry
+		// sum%10是节点的当前值，如果是10,取余后当前节点值为0，sum/10是求十位的那个数
+		sum, carry = sum%10, sum/10
+		// 此时申请一个新的链表存储两个链表的和
+		if head == nil {
+			// 申请新的链表
+			head = &utils.ListNode{Val: sum}
+			// 这一步是为了保持头结点不变的情况下指针可以右移，所以说tail相当于临时节点，理解成尾节点也可以，因
+			// 为此时新链表中只有一个节点，所以头结点和尾结点都指向同一个元素。
+			tail = head
+		} else {
+			// 第二个节点后开始逐渐往尾结点增加元素
+			tail.Next = &utils.ListNode{Val: sum}
+			tail = tail.Next
+		}
+	}
+	// 把最后一位的余数加到链表最后。
+	if carry > 0 {
+		tail.Next = &utils.ListNode{Val: carry}
+	}
+	return head
+}
+
+// 整数翻转
+// 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+// 如果反转后整数超过 32 位的有符号整数的范围 [−2^31,  2^31 − 1] ，就返回 0。
+func reverse_zhzw(x int) int {
+	var y int
+	if x == 0 {
+		return x
+	} else if x > 0 {
+		for x > 0 {
+			y = 10*y + x%10
+			x /= 10
+		}
+	} else {
+		x = -x
+		for x > 0 {
+			y = 10*y + x%10
+			x /= 10
+		}
+		y = -y
+	}
+
+	if y > int(math.Exp2(float64(31))-1) || y < -int(math.Exp2(float64(31))) {
+		return 0
+	}
+	return y
+}
+
+// 双百答案
+func reverse(x int) int {
+	ret := 0
+	for ; x != 0; x /= 10 {
+		ret = ret*10 + x%10
+		if ret < math.MinInt32 || ret > math.MaxInt32 {
+			return 0
+		}
+	}
+	return ret
+}
+
+// 三数之和
+// 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]]
+// 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0
+// 请你返回所有和为 0 且不重复的三元组
+func threeSum_zhzw(nums []int) [][]int {
+	N := len(nums)
+	if N < 3 {
+		return [][]int{}
+	}
+
+	var tmpResult [][]int
+	var res []int
+	for i := 0; i <= N-3; i++ {
+		for j := i + 1; j <= N-3; j++ {
+			for k := 0; k <= N-3; k++ {
+				if nums[i]+nums[j]+nums[k] == 0 {
+					res = append(res, []int{nums[i], nums[j], nums[k]}...)
+					tmpResult = append(tmpResult, res)
+					res = []int{}
+				}
+			}
+		}
+	}
+	// 二维切片去重，繁琐，此路不通
+	var result [][]int
+	return result
+}
+
+func threeSum(nums []int) [][]int {
+	ans := [][]int{}
+	if nums == nil || len(nums) < 3 {
+		return ans
+	}
+	sort.Ints(nums)
+	// 此层for循环控制nums[i]的定位一直循环到nums[i] == 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] > 0 {
+			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		left := i + 1
+		right := len(nums) - 1
+		for left < right {
+			sum := nums[i] + nums[left] + nums[right]
+			if sum == 0 {
+				res := []int{nums[i], nums[left], nums[right]}
+				ans = append(ans, res)
+				// 需要将 left < right 写在 && 的左边先行判断, 因为&&有短路求值的特性
+				for left < right && nums[left] == nums[left+1] {
+					left++
+				}
+				for left < right && nums[right] == nums[right-1] {
+					right--
+				}
+				left++
+				right--
+			} else if sum > 0 {
+				right--
+			} else if sum < 0 {
+				left++
+			}
+		}
+	}
+	return ans
 }

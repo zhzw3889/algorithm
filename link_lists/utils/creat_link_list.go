@@ -8,7 +8,8 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func CreateLinkList(slice []int, length int) *ListNode {
+func CreateLinkList(slice []int) *ListNode {
+	length := len(slice)
 	if length == 0 {
 		return nil
 	}

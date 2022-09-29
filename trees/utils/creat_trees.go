@@ -1,6 +1,6 @@
 package utils
 
-type TElemType int
+type TElemType interface{}
 
 // Definition for a binary tree node.
 // Tree指向第一个TreeNode的指针
