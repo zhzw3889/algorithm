@@ -204,39 +204,48 @@ func threeSum_zhzw(nums []int) [][]int {
 	return result
 }
 
+// 双指针方法
 func threeSum(nums []int) [][]int {
 	ans := [][]int{}
-	if nums == nil || len(nums) < 3 {
+	N := len(nums)
+	if nums == nil || N < 3 {
 		return ans
 	}
+	// 先排序，保证唯一性，去重的前提
 	sort.Ints(nums)
 	// 此层for循环控制nums[i]的定位一直循环到nums[i] == 0
-	for i := 0; i < len(nums); i++ {
-		if nums[i] > 0 {
+	for index, value := range nums {
+		if value > 0 {
 			break
 		}
-		if i > 0 && nums[i] == nums[i-1] {
+		// 排除值重复的固定位，去重的关键
+		if index > 0 && nums[index] == nums[index-1] {
 			continue
 		}
-		left := i + 1
-		right := len(nums) - 1
+		// 指针初始位置，固定位右边第一个和数组最后一个
+		left := index + 1
+		right := N - 1
 		for left < right {
-			sum := nums[i] + nums[left] + nums[right]
-			if sum == 0 {
-				res := []int{nums[i], nums[left], nums[right]}
+			sum := value + nums[left] + nums[right]
+			switch {
+			case sum == 0:
+				res := []int{value, nums[left], nums[right]}
 				ans = append(ans, res)
-				// 需要将 left < right 写在 && 的左边先行判断, 因为&&有短路求值的特性
+				// 需要先行判断 left < right
 				for left < right && nums[left] == nums[left+1] {
 					left++
 				}
 				for left < right && nums[right] == nums[right-1] {
 					right--
 				}
+				// 准备下一次sum求值判断
 				left++
 				right--
-			} else if sum > 0 {
+			case sum > 0:
+				// 和大于 0，说明 right 值大，需要左移
 				right--
-			} else if sum < 0 {
+			case sum < 0:
+				// 和小于 0，说明 left 值小，需要右移
 				left++
 			}
 		}

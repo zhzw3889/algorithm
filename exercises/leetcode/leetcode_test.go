@@ -60,6 +60,11 @@ func TestThreeSum(t *testing.T) {
 		input []int
 		want  [][]int
 	}{
+		{nil, [][]int{}},
+		{[]int{}, [][]int{}},
+		{[]int{0, 0, 0}, [][]int{
+			{0, 0, 0},
+		}},
 		{[]int{-1, 0, 1, 2, -1, -4}, [][]int{
 			{-1, -1, 2},
 			{-1, 0, 1},
