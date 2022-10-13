@@ -242,13 +242,163 @@ func threeSum(nums []int) [][]int {
 				left++
 				right--
 			case sum > 0:
-				// 和大于 0，说明 right 值大，需要左移
+				// 和大于 0，说明 right 值大，左移
 				right--
 			case sum < 0:
-				// 和小于 0，说明 left 值小，需要右移
+				// 和小于 0，说明 left 值小，右移
 				left++
 			}
 		}
 	}
 	return ans
+}
+
+// 最接近的三数之和
+// 给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+// 返回这三个数的和。
+// 假定每组输入只存在恰好一个解。
+// 暴力解法，超时，需用其他方法
+func threeSumClosestZhzw(nums []int, target int) int {
+	N := len(nums)
+	var sumOfThree, sumToTarget, tmpSumToTarget int
+
+	var res int
+	for i := 0; i < N; i++ {
+		for j := i + 1; j < N; j++ {
+			for k := N - 1; k > j; k-- {
+				sumOfThree = nums[i] + nums[j] + nums[k]
+				tmpSumToTarget = int(math.Abs(float64(sumOfThree) - float64(target)))
+				// 只初始化一次，后续满足条件才更新
+				if i == 0 && j == 1 && k == N-1 || tmpSumToTarget < sumToTarget {
+					sumToTarget = tmpSumToTarget
+					res = sumOfThree
+				}
+			}
+		}
+	}
+	return res
+}
+
+// 双指针法
+func threeSumClosest(nums []int, target int) int {
+	sort.Ints(nums)
+	var (
+		n    = len(nums)
+		best = math.MaxInt32
+	)
+
+	// 枚举 a
+	for i := 0; i < n; i++ {
+		// 保证和上一次枚举的元素不相等
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		// 使用双指针枚举 b(j) 和 c(k)
+		j, k := i+1, n-1
+		for j < k {
+			sum := nums[i] + nums[j] + nums[k]
+			// 如果和为 target 直接返回答案
+			if sum == target {
+				return target
+			}
+			// 根据差值的绝对值来更新答案
+			if math.Abs(float64(sum-target)) < math.Abs(float64(best-target)) {
+				best = sum
+			}
+			// 移动指针的优化
+			if sum > target {
+				// 如果和大于 target，移动 c 对应的指针
+				nextK := k - 1
+				// 跳过相等的元素
+				for j < nextK && nums[nextK] == nums[k] {
+					nextK--
+				}
+				k = nextK
+			} else {
+				// 如果和小于 target，移动 b 对应的指针
+				nextJ := j + 1
+				for nextJ < k && nums[nextJ] == nums[j] {
+					nextJ++
+				}
+				j = nextJ
+			}
+		}
+	}
+	return best
+}
+
+// 四数之和
+// 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。
+// 请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]]
+// （若两个四元组元素一一对应，则认为两个四元组重复）
+func fourSum_zhzw(nums []int, target int) [][]int {
+	N := len(nums)
+	if N < 4 {
+		return [][]int{}
+	}
+	// 先排序，处理不重复问题
+	sort.Ints(nums)
+
+	result := [][]int{}
+	left, right := 0, N-1
+	forsum := math.MaxInt64
+	for i := 0; i < N; i++ {
+		for left+1 < right-1 {
+			midleft, midright := left+1, right-1
+			forsum = nums[left] + nums[midleft] + nums[midright] + nums[right]
+			if forsum == target {
+				result = append(result, []int{nums[left], nums[midleft], nums[midright], nums[right]})
+			} else if forsum > target {
+				midright--
+			} else {
+				midleft++
+			}
+
+			// 内层遍历完
+			if midleft >= midright {
+				break
+			}
+		}
+	}
+	return result
+}
+
+// 四数之和，官方
+func fourSum(nums []int, target int) [][]int {
+	var result [][]int
+	sort.Ints(nums)
+	n := len(nums)
+	// nums[i]+nums[i+1]+nums[i+2]+nums[i+3]>target即可退出循环
+	for i := 0; i < n-3 && nums[i]+nums[i+1]+nums[i+2]+nums[i+3] <= target; i++ {
+		// nums[i] == nums[i-1]时会造成重复，找下一个i，枚举nums[i+1]
+		// nums[i]+nums[n−3]+nums[n−2]+nums[n−1]<target时所有后续都不满足，找下一个i，枚举nums[i+1]
+		if i > 0 && nums[i] == nums[i-1] || nums[i]+nums[n-3]+nums[n-2]+nums[n-1] < target {
+			continue
+		}
+		// 确定前两个数之后，如果nums[i]+nums[j]+nums[j+1]+nums[j+2]>target，四数之和一定大于target，退出循环
+		for j := i + 1; j < n-2 && nums[i]+nums[j]+nums[j+1]+nums[j+2] <= target; j++ {
+			// nums[j] == nums[j-1]时会造成重复，找下一个j，枚举nums[j+1]
+			// 确定前两个数之后，如果nums[i]+nums[j]+nums[n−2]+nums[n−1]<target，四数之和一定小于target，找下一个i，枚举nums[i+1]
+			if j > i+1 && nums[j] == nums[j-1] || nums[i]+nums[j]+nums[n-2]+nums[n-1] < target {
+				continue
+			}
+			// 剩下两个数用双指针
+			for left, right := j+1, n-1; left < right; {
+				if sum := nums[i] + nums[j] + nums[left] + nums[right]; sum == target {
+					result = append(result, []int{nums[i], nums[j], nums[left], nums[right]})
+					// 去除left重复项
+					for left++; left < right && nums[left] == nums[left-1]; left++ {
+					}
+					// 去除right重复项
+					for right--; left < right && nums[right] == nums[right+1]; right-- {
+					}
+				} else if sum < target {
+					left++
+				} else {
+					right--
+				}
+			}
+		}
+	}
+	return result
 }
