@@ -176,6 +176,40 @@ func reverse(x int) int {
 	return ret
 }
 
+// 两数之和，O(nlogn)
+// 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+// 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现
+// 双指针，返回的是下标，而双指针要先排序，如果返回的是值此方法是可行的
+func twoSum_zhzw(nums []int, target int) []int {
+	N := len(nums)
+	sort.Ints(nums)
+	left, right := 0, N-1
+	for left < right {
+		tmpSum := nums[left] + nums[right]
+		if tmpSum == target {
+			return []int{nums[left], nums[right]}
+		} else if tmpSum < target {
+			left++
+		} else {
+			right--
+		}
+	}
+	return []int{}
+}
+
+// 两数之和，哈希表法，O(n)
+func twoSum(nums []int, target int) []int {
+	hashTable := make(map[int]int)
+	for i, v := range nums {
+		if p, ok := hashTable[target-v]; ok {
+			// p为已遍历过的元素的下标，i为当前元素下标，注意顺序
+			return []int{p, i}
+		}
+		hashTable[v] = i
+	}
+	return []int{}
+}
+
 // 三数之和
 // 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]]
 // 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0

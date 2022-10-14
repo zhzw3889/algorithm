@@ -2,7 +2,7 @@ package utils
 
 // slice比较, string
 // todo, interface{}
-func EqualSlice(x, y []string) bool {
+func EqualSlice(x, y []interface{}) bool {
 	if len(x) != len(y) {
 		return false
 	}
