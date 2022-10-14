@@ -55,6 +55,33 @@ func TestRotatedDigits_zhzw(t *testing.T) {
 	}
 }
 
+func TestTwoSum_zhzw(t *testing.T) {
+	var tests = []struct {
+		input  []int
+		target int
+		want   []int
+	}{
+		{[]int{2, 7, 11, 15}, 9, []int{2, 7}},
+		{[]int{3, 2, 4}, 6, []int{2, 4}},
+	}
+	for _, test := range tests {
+		got := twoSum_zhzw(test.input, test.target)
+		// []interface{}不能直接传入，必须如下处理
+		// ===============================================
+		realwant, realgot := make([]interface{}, len(test.want)), make([]interface{}, len(got))
+		for i, v := range got {
+			realgot[i] = v
+		}
+		for i, v := range test.want {
+			realwant[i] = v
+		}
+		// ===============================================
+		if !utils.EqualSlice(realwant, realgot) {
+			t.Errorf("twoSum_zhzw(%v, %v) = %v, wanted: %v", test.input, test.target, got, test.want)
+		}
+	}
+}
+
 func TestTwoSum(t *testing.T) {
 	var tests = []struct {
 		input  []int
